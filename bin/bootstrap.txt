@@ -1,0 +1,10 @@
+<script>
+winrm quickconfig -q & winrm set winrm/config/winrs @{MaxMemoryPerShellMB="2048"} & winrm set winrm/config @{MaxTimeoutms="3000000"} & winrm set winrm/config/client/auth @{Basic="true"} & winrm set winrm/config/service/auth @{Basic="true"} & winrm set winrm/config/service @{AllowUnencrypted="true"} & netsh advfirewall firewall add rule name="WinRM 5985" protocol=TCP dir=in localport=5985 action=allow & netsh advfirewall firewall set rule group="remote administration" new enable=yes & net stop winrm & sc config "WinRM" start= auto & net start "WinRM" & winrm create winrm/config/listener?Address=*+Transport=HTTP & net start "Winrm"
+</script>
+<powershell>
+write-output "Running Bootstrap Script"
+net user Administrator DummyP@ssw0rd
+
+md C:/resources
+md C:/logs
+</powershell>

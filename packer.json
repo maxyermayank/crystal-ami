@@ -1,0 +1,73 @@
+{
+  "variables": {
+    "USERNAME": "{{ env `USERNAME` }}", 
+    "ACCESS_KEY": "{{ env `ACCESS_KEY` }}", 
+    "SOURCE_AMI": "ami-0196cda9251876643", 
+    "NAME": "mpatel-Windows-Crystal-Report-AMI", 
+    "REGION": "{{ env `REGION` }}", 
+    "SSH_KEY": "{{ env `SSH_KEY` }}", 
+    "SECRET_KEY": "{{ env `SECRET_KEY` }}", 
+    "PASSWORD": "{{ env `PASSWORD` }}", 
+    "DESCRIPTION": "Windows Crystal Report AMI"
+  }, 
+  "provisioners": [
+    {
+      "source": "./resources/", 
+      "destination": "c:\\resources\\", 
+      "type": "file"
+    }, 
+    {
+      "inline": [
+        "dir c:\\\\"
+      ], 
+      "type": "powershell"
+    }, 
+    {
+      "type": "powershell", 
+      "environment_vars": [
+        "PASSWORD={{ user `PASSWORD` }}"
+      ], 
+      "scripts": [
+        "./bin/setupTools.ps1", 
+        "./bin/setupCrystal.ps1", 
+        "./bin/setupIIS.ps1"
+      ]
+    }
+  ], 
+  "builders": [
+    {
+      "winrm_password": "{{ user `PASSWORD` }}", 
+      "tags": [
+        {
+          "Name": "{{ user `NAME` }}"
+        }, 
+        {
+          "Description": "{{ user `DESCRIPTION` }}"
+        }
+      ], 
+      "ami_virtualization_type": "hvm", 
+      "ssh_private_key_file": "{{ user `SSH_KEY` }}", 
+      "communicator": "winrm", 
+      "security_group_ids": [
+        "<SECURITY_GROUP_IDS>"
+      ], 
+      "winrm_username": "{{ user `USERNAME` }}", 
+      "access_key": "{{ user `ACCESS_KEY` }}", 
+      "source_ami": "{{ user `SOURCE_AMI` }}", 
+      "subnet_id": "<SUBNET_ID>", 
+      "region": "{{ user `REGION` }}", 
+      "ami_name": "mpatel-{{ user `SOURCE_AMI` }}-crystal-{{timestamp}}", 
+      "ami_users": [
+        "<AWS_ACCOUNT_NUMBER>"
+      ], 
+      "instance_type": "t2.micro", 
+      "ami_description": "{{ user `DESCRIPTION` }}", 
+      "ssh_keypair_name": "<SSH Key Name>", 
+      "associate_public_ip_address": false, 
+      "vpc_id": "<VPC_ID>", 
+      "secret_key": "{{ user `SECRET_KEY` }}", 
+      "user_data_file": "./bin/bootstrap.txt", 
+      "type": "amazon-ebs"
+    }
+  ]
+}
