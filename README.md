@@ -53,12 +53,14 @@ yacker build packer.yml
 ## **Variables**
 | Variable     | Example Value | Description |
 | ------------ | ------------- | ----------- |
-| `ACCESS_KEY` | AKIAIOSFODNN7EXAMPLE | AWS Access Key |
-| `SECRET_KEY` | wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY | AWS Secret Key |
+| `ACCESS_KEY` | AWSEXAMPLEACCESSKEY | AWS Access Key |
+| `SECRET_KEY` | AWSEXAMPLESECRETKEY | AWS Secret Key |
 | `REGION`     | us-east-1 | AWS Region where trying to create AMI |
 | `SSH_KEY`    | ~/testkey.pem | SSH Key path trying to use for AMI and instances |
 | `USERNAME`   | NOTADMINEXAMPLE | Username for Windows Crystal Instance |
 | `PASSWORD`   | NOTADMINEXAMPLE | Password for Windows Crystal Instance |
+| `SITE_BINDING_NAME` | xyz.domain.com | Domain URL to map IIS site to |
+| `DEPLOY_USER_PASSWORD` | DEPLOYEXAMPLE | Password for Deploy User of Windows Crystal Instance |
 
 
 ## **Set Environment Variables**
@@ -66,9 +68,11 @@ yacker build packer.yml
 export USERNAME=NOTADMINEXAMPLE
 export PASSWORD=NOTADMINEXAMPLE
 export SSH_KEY=~/testkey.pem
-export ACCESS_KEY=AKIAIOSFODNN7EXAMPLE
-export SECRET_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+export ACCESS_KEY=AWSEXAMPLEACCESSKEY
+export SECRET_KEY=AWSEXAMPLESECRETKEY
 export REGION=us-east-1
+export SITE_BINDING_NAME=xyz.domain.com
+export DEPLOY_USER_PASSWORD=DEPLOYEXAMPLE
 ```
 
 # **Resources**

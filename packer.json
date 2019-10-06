@@ -8,6 +8,8 @@
     "SSH_KEY": "{{ env `SSH_KEY` }}", 
     "SECRET_KEY": "{{ env `SECRET_KEY` }}", 
     "PASSWORD": "{{ env `PASSWORD` }}", 
+    "SITE_BINDING_NAME": "{{ env `SITE_BINDING_NAME` }}", 
+    "DEPLOY_USER_PASSWORD": "{{ env `DEPLOY_USER_PASSWORD` }}", 
     "DESCRIPTION": "Windows Crystal Report AMI"
   }, 
   "provisioners": [
@@ -25,7 +27,9 @@
     {
       "type": "powershell", 
       "environment_vars": [
-        "PASSWORD={{ user `PASSWORD` }}"
+        "PASSWORD={{ user `PASSWORD` }}",
+        "DEPLOY_USER_PASSWORD={{ user `DEPLOY_USER_PASSWORD` }}",
+        "SITE_BINDING_NAME={{ user `SITE_BINDING_NAME` }}"
       ], 
       "scripts": [
         "./bin/setupTools.ps1", 

@@ -8,6 +8,8 @@ variables:
   ACCESS_KEY: "{{ env `ACCESS_KEY` }}"
   SECRET_KEY: "{{ env `SECRET_KEY` }}"
   REGION: "{{ env `REGION` }}"
+  SITE_BINDING_NAME: "{{ env `SITE_BINDING_NAME` }}"
+  DEPLOY_USER_PASSWORD: "{{ env `DEPLOY_USER_PASSWORD` }}"
 
 description:
 builders:
@@ -45,6 +47,8 @@ provisioners:
   - type: powershell
     environment_vars:
       - "PASSWORD={{ user `PASSWORD` }}"
+      - "DEPLOY_USER_PASSWORD={{ user `DEPLOY_USER_PASSWORD` }}"
+      - "SITE_BINDING_NAME={{ user `SITE_BINDING_NAME` }}"
     scripts:
       - ./bin/setupTools.ps1
       - ./bin/setupCrystal.ps1
